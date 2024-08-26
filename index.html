@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tijori SIDEKICK</title>
+	<script src="js/TweenMax.min.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery.blast.js"></script>
+</head>
+<style type="text/css">
+	@font-face {
+	    font-family: 'bariol';
+	    src: url('font/bariol_regular-webfont.ttf') format('truetype');
+	}
+	*{
+		text-transform: uppercase;
+	    font-family: 'bariol';
+	    font-size: 36px;
+		margin:0;
+		padding:0;
+	}
+	body, html{
+		height: 100%;
+		width: 100%;
+		background: #000;
+		overflow: hidden;
+	}
+	.main-contain{
+		height: 100%;
+		width: 100%;
+		display: table;
+	}
+	.slide-contain{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.slide-inner{
+		width:80%;
+		margin: 0 auto;
+		text-align: center;
+		color: white;
+	}
+	.slide img{
+		margin: 10px;
+		box-shadow: 0px 0px 5px 1px white;
+	}
+</style>
+<body>
+	<audio>
+	  	<source src="audio/b.mp3" type="audio/mpeg">
+	</audio>
+	<div class="main-contain">
+		<div class="slide-contain">
+			<div class="slide-inner">
+				<div class="slide slide1">
+					<h1>do you ever carry your bag</h1>
+					<h1>for more than 10 minutes a day?</h1><br/>
+					<img src="img/bag3.jpg" height="300"/>
+					<img src="img/bag1.jpg" height="300"/>
+					<img src="img/bag4.jpg" height="300"/>
+				</div>
+				<div class="slide slide2">
+					<h1>do you also suffer from recurring</br/>
+					headaches, neck and shoulder pain?</h1><br/>
+					<img src="img/headache.jpg" height="300"/>
+					<img src="img/neck-pain.jpg" height="300"/>
+					<img src="img/back-pain.jpg" height="300"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var audio = document.getElementsByTagName("audio")[0];
+		/*$(".slide1 h1").blast({delimiter:"letter"});*/
+		TweenMax.set($(".slide h1"), {css:{opacity:0, x:-200}});
+		TweenMax.set($(".slide img"), {css:{opacity:0}});
+		TweenMax.set($(".slide"), {css:{display:"none"}});
+		var tl = new TimelineMax({ 
+			delay:0.7,
+			onStart:function(){audio.play()},
+			onComplete:function(){audio.pause()}
+		});
+		tl
+		.to($(".slide1"), 0.01, {display:"block"})
+		.add("enter1")
+		.staggerTo($(".slide1 img"), 1, {opacity:1, rotationY:360}, 1, "enter1")
+		.staggerTo($(".slide1 h1"), 2.7, {opacity:1, x:0}, 1.5, "enter1")
+		.to($(".slide1"), 0.5, {y:"-=200%"})
+		.to($(".slide1"), 0.01, {display:"none"})
+		.to($(".slide2"), 0.01, {display:"block"})
+		.add("enter2")
+		.to($(".slide2 h1"), 0.01, {x:-200})
+		.staggerTo($(".slide2 h1"), 3, {opacity:1, x:0}, 2, "enter2")
+		.staggerFromTo($(".slide2 img"), 1, {opacity:0, rotationZ:-30}, {opacity:1, rotationZ:0}, 1, "enter2")
+		;
+	</script>
+</body>
+</html>
